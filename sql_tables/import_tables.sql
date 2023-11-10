@@ -86,9 +86,10 @@ DROP TABLE IF EXISTS `sellers`;
 CREATE TABLE `sellers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
+  `description` text,
+  `user_id` int NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_sellers_users1_idx` (`user_id`),
   CONSTRAINT `fk_sellers_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -172,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10  5:49:44
+-- Dump completed on 2023-11-10  5:56:16
