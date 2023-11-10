@@ -1,3 +1,88 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	font-family: 'Nunito', sans-serif;
+	background-color: #f2f2f2;
+}
+
+h2 {
+	margin-bottom: 10px;
+}
+
+.block-split {
+	display: flex;
+}
+
+.content {
+	width: 1250px;
+	margin: auto;
+}
+
+.block-categories {
+	flex: 1;
+}
+
+.block-items {
+	flex: 3;
+}
+
+.block {
+	margin: 10px;
+	padding: 20px;
+	background-color: white;
+	min-height: 750px;
+	border: 2px solid lightgray;
+}
+
+.block ul {
+	margin-top: 10px;
+	padding-left: 32px;
+	font-size: 15pt;
+}
+
+.items-box {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    align-content: flex-start;
+}
+
+
+.item-instance {
+	width: 200px;
+	background-color: lightblue;
+	margin: 5px;
+	display: flex;
+	flex-direction: column;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.item-instance:nth-child(even)
+{
+	background-color: pink;
+}
+
+.item-instance h3 {
+	margin-top: 10px;
+}
+
+.item-instance h3, p {
+	text-align: center;
+}
+
+.item-instance img {
+	margin: auto;
+	height: 120px;
+}
+
+.pagination {
+	display: flex;
+	justify-content: space-between;
+	display: none;
 }
