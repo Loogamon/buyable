@@ -1,0 +1,48 @@
+<users>
+
+id
+first_name
+last_name
+email
+password
+created_at
+updated_at
+
+
+<item>
+
+id
+name
+price (of course, remember to display money properly.)
+img (stores a url for the image)
+description
+user_id (seller, link to another table)
+category_id (category, link to another table)
+created_at
+updated_at
+
+
+<shopping_cart>
+
+id
+quanity (while it could do work without it using with many-to-many querying, this is a way to have easily have it re-adjusted without having to rearrange the table. Just have to make it get deleted when the count is 0.)
+created_at
+updated_at
+
+
+<sellers>
+
+id
+name (Brand name; basically if left blank, would use the user's name?)
+created_at
+updated_at
+
+* Mostly needed to be allowed to add/sell items.
+
+
+<categories>
+
+id
+name
+created_at
+updated_at
