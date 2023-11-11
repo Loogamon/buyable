@@ -287,3 +287,73 @@ input {
 .editor-aa textarea {
 	resize: none;
 }
+
+.edit-split {
+	display: flex;
+}
+
+.edit-left {
+	flex: 1;	
+}
+
+.edit-left img {
+	height: 200px;
+}
+
+.edit-right {
+	flex: 4;
+}
+
+table {
+	width: 100%;
+}
+
+td,th {
+	border: 2px solid #e6e6e6;
+	padding: 5px;
+}
+
+th {
+	background-color: #e6e6e6;
+}
+
+td {
+	text-align: center;
+}
+
+.about-user {
+	margin-bottom: 10px;
+}
+
+.price {
+	font-size: 14pt;
+	margin: 10px;
+	margin-left: 0px;
+	padding: 10px;
+	border: 2px dashed #d9d9d9;
+	border-radius: 5px;
+}
+
+.price-box {
+	margin: 20px;
+	margin-left: 0px;
+	margin-bottom: 20px;
+}
+
+.item-info {
+	margin-left: 20px;
+}
+
+.buy-box {
+	text-align: center;
+	font-size: 14pt;
+	margin-top: 20px;
+}
+
+.buy-box select {
+	font-size: 14pt;
+}
+
+.quanity-form {
+	margin-top: 10px;
+}
