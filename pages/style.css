@@ -176,3 +176,114 @@ h2 {
 .item-img {
 	height: 120px;
 }
+
+.mycart-main {
+	width: 60%;
+}
+
+.mycart-row {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.mycart-row:last-child {
+	margin-bottom: 0px;
+}
+
+.mycart-column {
+	margin-right: 10px;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	background-color: #e6e6e6;
+}
+
+.mycart-column:last-child {
+	margin-right: 0px;
+}
+
+.mycart-column:hover {
+	background-color: #d9d9d9;
+}
+
+.mycart-item {
+	text-align: center;
+}
+
+.center {
+	/*border: 1px solid green;*/
+	flex: 1;
+}
+
+.item-name {
+	font-weight: bold;
+}
+
+.item {
+	flex: 4;
+}
+
+.quanity {
+	flex: 1;
+}
+
+.button {
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 12pt;
+	font-weight: bold;
+	font-family: 'Nunito', sans-serif;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.remove-button {
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 12pt;
+	font-weight: bold;
+	font-family: 'Nunito', sans-serif;
+}
+
+input {
+	font-family: 'Nunito', sans-serif;
+}
+
+/* Totally not taken somewhere else. */
+
+.editor-errors {
+	color: red;
+	margin-top: 10px;
+}
+
+.editor-errors ul {
+	font-size: unset;
+}
+
+.logbutt {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.editor-aa {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.editor-aa label {
+	text-align: right;
+	width: 200px;
+	margin-right: 10px;
+}
+
+.editor-aa input, .editor-aa select, .editor-aa textarea {
+	/*font-size: large;*/
+	width: 100%;
+}
+
+.editor-aa textarea {
+	resize: none;
+}
