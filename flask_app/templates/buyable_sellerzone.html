@@ -73,11 +73,11 @@
 						<p>There are no products.</p>
 					</div>
 					{% endif %}
-					<button onclick="document.location='/item/add'" class="button logbutt">Add Item</button>
+					<button onclick="document.location='/item/add'" class="button logbutt" {% if not cats|length>0 %}disabled{% endif %}>Add Item</button>
 				</div>
 				<div class="block-items block" style="min-height: unset;">
 					<h2>Categories</h2>
-					<p style="margin-bottom: 10px;">Because there's no admin feature, this edits <em>all</em> categories, and it affects the items within that do not belong the user.</p>
+					<p style="margin-bottom: 10px;">Because there's no admin feature, this edits <em>all</em> categories, and it affects the items within. This includes the items that do not belong to the user.</p>
 					{% if cats|length>0 %}
 					<table>
 						<tr>

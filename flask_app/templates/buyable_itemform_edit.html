@@ -21,8 +21,9 @@
 						</div>
 						<div class="edit-right">
 							<h2>Edit Product</h2>
-							<form class="reg" action="/" method="post" enctype="multipart/form-data">
+							<form class="reg" action="/action/item?t=edit" method="post" enctype="multipart/form-data">
 								<div class="editor-aa">
+									<input type="hidden" id="item_id" name="item_id" value="{{ item['id'] }}">
 									<label for="item_name">Name</label>
 									<input type="text" id="item_name" name="item_name"><br>
 								</div>

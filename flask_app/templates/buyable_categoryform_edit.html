@@ -19,8 +19,8 @@
 					<form class="reg" action="/action/category?t=edit" method="post">
 						<div class="editor-aa">
 							<input type="hidden" id="item_id" name="item_id" value="{{ item['id'] }}">
-							<label for="item_name">Name</label>
-							<input type="text" id="item_name" name="item_name" value="{{ item['name'] }}"><br>
+							<label for="category_name">Name</label>
+							<input type="text" id="item_name" name="category_name" value="{{ item['name'] }}"><br>
 						</div>
 						<input class="button logbutt" type="submit" value="Update Category"><button type="button" onclick='window.location.href = "/category/edit?id={{ item["id"] }}&action=delete"' style="margin-left: 10px;" class="button logbutt">Delete Category</button>
 					</form>

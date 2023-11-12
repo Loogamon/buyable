@@ -1,4 +1,6 @@
-from flask import Flask, render_template, session, redirect, request, flash
+from flask import Flask, render_template, session, redirect, request, flash, url_for
+import os
+from werkzeug.utils import secure_filename
 from flask_app import app
 from flask_bcrypt import Bcrypt
 import datetime
@@ -8,6 +10,7 @@ from flask_app.models.class_usersession import UserSession
 from flask_app.models.class_users import Users
 from flask_app.models.class_models import Items
 from flask_app.models.class_models import Categories
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'jfif'}
 
 @app.route('/action/category',methods=['POST'])
 def action_category():
@@ -29,4 +32,38 @@ def action_category():
         if not valid:
              return redirect(f"/category/edit?id={request.form['item_id']}");
         Categories.update(request.form)
+    return redirect("/sellers");
+
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def file_ext(filename):
+    f=filename.rsplit('.', 1)[1].lower()
+    return f;
+
+@app.route('/action/item',methods=['POST'])
+def action_item():
+    num=0
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    action=request.args.get('t')
+    if 'item_img' not in request.files:
+        flash('No file part.',"items")
+        return redirect("/item/add")
+    file = request.files['item_img']
+    if file.filename == '':
+        flash("No file was selected.","items")
+        return redirect("/item/add")
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        ext=file_ext(filename)
+        if not os.path.exists(app.config['UPLOAD_FOLDER']):
+            os.makedirs(app.config['UPLOAD_FOLDER'])
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], f"{num}.{ext}"))
+    print(request.form)
+    print(action)
     return redirect("/sellers");

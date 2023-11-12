@@ -399,3 +399,21 @@ td {
 	text-align: center;
 	font-style: italic;
 }
+
+.block-categories a{
+	
+}
+
+.block-categories a:link {
+	color: blue;
+	text-decoration: inherit;
+}
+
+.block-categories a:visited {
+	color: blue;
+	text-decoration: inherit;
+}
+
+.block-categories a:hover {
+	text-decoration: underline;
+}

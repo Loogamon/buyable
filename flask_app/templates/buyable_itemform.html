@@ -16,16 +16,17 @@
 			<div class="block-split">
 				<div class="block-items block" style="min-height: unset;">
 					<h2>Add Product</h2>
-					<form class="reg" action="/" method="post" enctype="multipart/form-data">
+					<form class="reg" action="/action/item?t=add" method="post" enctype="multipart/form-data">
 						<div class="editor-aa">
 							<label for="item_name">Name</label>
-							<input type="text" id="item_name" name="item_name"><br>
+							<input type="text" id="item_name" name="item_name" value="{{ item['name'] }}"><br>
 						</div>
 						<div class="editor-aa">
 							<label for="item_cat">Category</label>
 							<select name="item_cat">
-								<option value="0">Item 1</option>
-								<option value="1">Item 2</option>
+								{% for it in cats %}
+								<option value="{{ it.id }}" {% if item['cat']==it.id %}selected{% endif %}>{{ it.name }}</option>
+								{% endfor %}
 							</select><br>
 						</div>
 						<div class="editor-aa">
@@ -34,7 +35,7 @@
 						</div>
 						<div class="editor-aa">
 							<label for="item_desc">Description</label>
-							<textarea id="item_desc" name="item_desc" rows="4">Blah Balh</textarea>
+							<textarea id="item_desc" name="item_desc" rows="4">{{ item['description'] }}</textarea>
 						</div>
 						<input class="button logbutt" type="submit" value="Add Item">
 					</form>

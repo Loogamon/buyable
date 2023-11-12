@@ -17,14 +17,18 @@
 				<div class="block-categories block">
 					<h2>Categories</h2>
 					<ul>
-						<li>(All)</li>
+						<li>{% include 'template_cat_all_start.html' %}(All){% include 'template_cat_all_end.html' %}</li>
 						{% for c in cats %}
-						<li>{{ c.name }}</li>
+						<li>{% include 'template_cat_start.html' %}{{ c.name }}{% include 'template_cat_end.html' %}</li>
 						{% endfor %}
 					</ul>
 				</div>
 				<div class="block-items block">
+					{% if search_url|length>0 %}
+					<h2>Search Results</h2>
+					{% else %}
 					<h2>Products</h2>
+					{% endif %}
 					<div class="items-box">
 						<div class="item-instance">
 							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">

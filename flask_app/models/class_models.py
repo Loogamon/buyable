@@ -177,6 +177,21 @@ class Items:
         return items
 
     @classmethod
+    def get_all_by_search(cls,id):
+        query = """
+            SELECT * FROM items
+            ORDER BY items.name;
+        """
+        data={"id": id}
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        if not results:
+            return []
+        items = []
+        for item in results:
+            items.append(this_item)
+        return items
+
+    @classmethod
     def get_all_by_user(cls,id):
         query = """
             SELECT * FROM items

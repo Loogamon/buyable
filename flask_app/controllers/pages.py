@@ -1,3 +1,4 @@
+import urllib.parse
 from flask import Flask, render_template, session, redirect, request, flash
 from flask_app import app
 from flask_bcrypt import Bcrypt
@@ -8,6 +9,27 @@ from flask_app.models.class_usersession import UserSession
 from flask_app.models.class_users import Users
 from flask_app.models.class_models import Items
 from flask_app.models.class_models import Categories
+
+@app.route('/')
+def page_home():
+    user=UserSession().check_status()
+    cats=Categories.get_all()
+
+    cat_sel=-1
+    cat_search=request.args.get('c')
+    if not cat_search == None:
+        if cat_search.isdigit():
+            cat_sel=int(cat_search)
+
+    search=request.args.get('f')
+    if search==None:
+        search="";
+    search_url=urllib.parse.quote(search, safe='')
+    
+    items=Items.get_all_simple()
+    print("Sanitize Test:", search_url)
+    return render_template("buyable_browse.html",user=user,cats=cats,cat_sel=cat_sel,search=search,search_url=search_url)
+
 
 @app.errorhandler(404)
 def page_404(e):
@@ -53,17 +75,12 @@ def page_error():
     if num==5:
         er['title']="User Error";
         er['desc']="You are trying to edit something that doesn't belong to you.";
+    if num==6:
+        er['title']="No Categories Found";
+        er['desc']="You can't add nor edit a product, if there's no categories present.";
     return render_template("buyable_error.html",user=user,er=er);
 
-#
-
-@app.route('/')
-def page_home():
-    user=UserSession().check_status()
-    cats=Categories.get_all()
-    items=Items.get_all_simple()
-    cat_sel=-1
-    return render_template("buyable_browse.html",user=user,cats=cats,cat_sel=cat_sel)
+#----
 
 @app.route('/user/login')
 def page_login():
@@ -137,11 +154,39 @@ def page_item_add():
     user=UserSession().check_status()
     if not user.logged_on:
         return redirect('/user/login')
-    return render_template("buyable_itemform.html",user=user)
+    cats=Categories.get_all()
+    if not len(cats)>0:
+        return redirect("/error?t=6")
+    item={ 
+    "name": "",
+    "cat": "",
+    "image": "",
+    "description": ""
+    }
+    if 'prev_name' in session:
+        item["name"]=session["prev_name"]
+        session["prev_name"]=""
+    
+    if 'prev_cat' in session:
+        item["cat"]=session["prev_cat"]
+        session["prev_cat"]=""
+    
+    if 'prev_image' in session:
+        item["image"]=session["prev_image"]
+        session["prev_image"]=""
+
+    if 'prev_description' in session:
+        item["description"]=session["prev_description"]
+        session["prev_description"]=""
+
+    return render_template("buyable_itemform.html",user=user,cats=cats,item=item)
 
 @app.route('/item/edit')
 def page_item_edit():
     user=UserSession().check_status()
     if not user.logged_on:
         return redirect('/user/login')
-    return render_template("buyable_itemform_edit.html",user=user)
+    cats=Categories.get_all()
+    if not len(cats)>0:
+        return redirect("/error?t=6")
+    return render_template("buyable_itemform_edit.html",user=user,cats=cats)
