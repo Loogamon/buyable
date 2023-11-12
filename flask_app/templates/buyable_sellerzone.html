@@ -36,13 +36,18 @@
 						</div>
 						<input class="button logbutt" type="submit" value="Update Info">
 					</form>
+					{% with messages = get_flashed_messages(category_filter=['branding']) %}
+					{% if messages %}
 					<div class="editor-errors logbutt">
 						<p>There's some problems:</p>
 						<ul>
-							<li>Errors Here</li>
-							<li>Errors Here</li>
+							{% for message in messages %}
+							<li>{{message}}</li>
+							{% endfor %}
 						</ul>
 					</div>
+					{% endif %}
+					{% endwith %}
 				</div>
 			</div>
 		</div>
@@ -50,6 +55,7 @@
 			<div class="block-split">
 				<div class="block-items block" style="min-height: unset;">
 					<h2>My Products</h2>
+					{% if items|length>0 %}
 					<table>
 						<tr>
 							<th>Name</th>
@@ -62,24 +68,37 @@
 							<td>Edit Delete</td>
 						</tr>
 					</table>
-					<button class="button logbutt">Add Item</button>
+					{% else %}
+					<div class="empty-table">
+						<p>There are no products.</p>
+					</div>
+					{% endif %}
+					<button onclick="document.location='/item/add'" class="button logbutt">Add Item</button>
 				</div>
 				<div class="block-items block" style="min-height: unset;">
 					<h2>Categories</h2>
-					<p style="margin-bottom: 10px;">Because there's no admin feature, this edits <em>all</em> categories, and the items within that don't belong the user.</p>
+					<p style="margin-bottom: 10px;">Because there's no admin feature, this edits <em>all</em> categories, and it affects the items within that do not belong the user.</p>
+					{% if cats|length>0 %}
 					<table>
 						<tr>
 							<th>Name</th>
 							<th>Date Created</th>
 							<th>Action</th>
 						</tr>
+						{% for c in cats %}
 						<tr>
-							<td>Item</td>
-							<td>XX/XX/XX</td>
-							<td>Edit Delete</tdh>
+							<td>{{ c.name }}</td>
+							<td>{{ c.when }}</td>
+							<td><a href="/category/edit?id={{ c.id }}">Edit</a></td>
 						</tr>
+						{% endfor %}
 					</table>
-					<button class="button logbutt">Add Category</button>
+					{% else %}
+					<div class="empty-table">
+						<p>There are no categories.</p>
+					</div>
+					{% endif %}
+					<button onclick="document.location='/category/add'" class="button logbutt">Add Category</button>
 				</div>
 			</div>
 		</div>

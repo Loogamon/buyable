@@ -1,12 +1,16 @@
 <div class="header-logo">
-	<h1>🛒Buyable</h1>
+	<h1><a href="/">🛒Buyable</a></h1>
 </div>
 <div class="nav-block">
 	<div class="header-nav">
 		<ul>
-			<li>Logout (Zachary Tabikh)</li>
-			<li>Shopping Cart (25 Items)</li>
-			<li>Seller's Zone</li>
+			{% if user.logged_on %}
+				<li><a href="/user/logout">Logout ({{ user.user_name }})</a></li>
+				<li><a href="/mycart">Shopping Cart{% if user.cart>0 %} ({{ user.cart  }} Items){% endif %}</a></li>
+				<li><a href="/sellers">Seller's Zone</a></li>
+			{% else %}
+				<li><a href="/user/login">Login</a></li>
+			{% endif %}
 		</ul>
 	</div>
 	<div class="header-search">

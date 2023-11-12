@@ -63,10 +63,43 @@ h2 {
 }
 
 .header-logo h1 {
+	user-select: none;
 }
 
 .header-nav li {
 
+}
+
+.header-logo a:link {
+	text-decoration: inherit;
+    color: inherit;
+    user-select: none;
+    cursor: pointer;
+}
+
+.header-logo a:visited {
+	text-decoration: inherit;
+    color: inherit;
+    user-select: none;
+    cursor: pointer;
+}
+
+.header-nav li a:link {
+	text-decoration: inherit;
+    color: inherit;
+    /*user-select: none;*/
+    cursor: pointer;
+}
+
+.header-nav li a:visited {
+	text-decoration: inherit;
+    color: inherit;
+    /*user-select: none;*/
+    cursor: pointer;
+}
+
+.header-nav li a:hover {
+	text-decoration: underline;
 }
 
 .header-nav ul {
@@ -137,6 +170,8 @@ h2 {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	background-color: #e6e6e6;
+	user-select: none;
+    cursor: pointer;
 	/*border: 2px solid black;*/
 }
 
@@ -356,4 +391,11 @@ td {
 
 .quanity-form {
 	margin-top: 10px;
+}
+
+.empty-table {
+	display: none;
+	padding: 20px;
+	text-align: center;
+	font-style: italic;
 }

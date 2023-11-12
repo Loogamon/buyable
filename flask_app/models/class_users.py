@@ -113,10 +113,3 @@ class Users:
             return f"{math.floor(delta.total_seconds() / 60)} minute(s) ago"
         else:
             return f"{math.floor(delta.total_seconds())} second(s) ago"
-
-    @classmethod
-    def get_comments_count(cls,my_id):
-        query = "SELECT * FROM comments WHERE user_id=%(id)s;"
-        data = { 'id': my_id}
-        results = connectToMySQL(cls.DB).query_db(query,data)
-        return len(results);

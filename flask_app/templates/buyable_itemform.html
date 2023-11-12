@@ -16,7 +16,7 @@
 			<div class="block-split">
 				<div class="block-items block" style="min-height: unset;">
 					<h2>Add Product</h2>
-					<form class="reg" action="/" method="post">
+					<form class="reg" action="/" method="post" enctype="multipart/form-data">
 						<div class="editor-aa">
 							<label for="item_name">Name</label>
 							<input type="text" id="item_name" name="item_name"><br>
@@ -38,13 +38,18 @@
 						</div>
 						<input class="button logbutt" type="submit" value="Add Item">
 					</form>
+					{% with messages = get_flashed_messages(category_filter=['items']) %}
+					{% if messages %}
 					<div class="editor-errors logbutt">
 						<p>There's some problems:</p>
 						<ul>
-							<li>Errors Here</li>
-							<li>Errors Here</li>
+							{% for message in messages %}
+							<li>{{message}}</li>
+							{% endfor %}
 						</ul>
 					</div>
+					{% endif %}
+					{% endwith %}
 				</div>
 			</div>
 		</div>
