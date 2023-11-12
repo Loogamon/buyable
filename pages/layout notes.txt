@@ -1,0 +1,12 @@
+<Front Page, Browse Items)
+
+header
+* content
+* search
+main content
+* categories
+* item box
+** item
+*** item-img
+*** item-txt
+*** item-price
