@@ -159,6 +159,7 @@ def page_item_add():
         return redirect("/error?t=6")
     item={ 
     "name": "",
+    "price": "",
     "cat": "",
     "image": "",
     "description": ""
@@ -166,9 +167,14 @@ def page_item_add():
     if 'prev_name' in session:
         item["name"]=session["prev_name"]
         session["prev_name"]=""
-    
+
+    if 'prev_price' in session:
+        item["price"]=session["prev_price"]
+        session["prev_price"]=""
+
     if 'prev_cat' in session:
-        item["cat"]=session["prev_cat"]
+        if session['prev_cat'].isdigit():
+            item["cat"]=int(session["prev_cat"])
         session["prev_cat"]=""
     
     if 'prev_image' in session:

@@ -10,7 +10,6 @@ from flask_app.models.class_usersession import UserSession
 from flask_app.models.class_users import Users
 from flask_app.models.class_models import Items
 from flask_app.models.class_models import Categories
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'jfif'}
 
 @app.route('/action/category',methods=['POST'])
 def action_category():
@@ -23,7 +22,7 @@ def action_category():
     if action=="add":
         valid=Categories.check_valid(request.form)
         if not valid:
-            session["prev_name"]=request.form['item_name']
+            session["prev_name"]=request.form['category_name']
             return redirect("/category/add");
         session["prev_name"]=""
         Categories.save(request.form)
@@ -34,7 +33,7 @@ def action_category():
         Categories.update(request.form)
     return redirect("/sellers");
 
-
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'jfif'}
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -50,7 +49,14 @@ def action_item():
     user=UserSession().check_status()
     if not user.logged_on:
         return redirect('/user/login')
+    print(request.form)
+    valid=Items.check_valid(request.form)
+    session["prev_name"]=request.form['item_name']
+    session["prev_price"]=request.form['item_price']
+    session["prev_cat"]=request.form['item_cat']
+    session["prev_description"]=request.form['item_desc']
     action=request.args.get('t')
+    print(action)
     if 'item_img' not in request.files:
         flash('No file part.',"items")
         return redirect("/item/add")
@@ -63,7 +69,15 @@ def action_item():
         ext=file_ext(filename)
         if not os.path.exists(app.config['UPLOAD_FOLDER']):
             os.makedirs(app.config['UPLOAD_FOLDER'])
+        if not valid:
+            return redirect("/item/add");
+        done=0
+        while os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], f"{num}.{ext}")):
+            num+=1
+        session["prev_name"]=""
+        session["prev_price"]=""
+        session["prev_cat"]=""
+        session["prev_description"]=""
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], f"{num}.{ext}"))
-    print(request.form)
-    print(action)
+    
     return redirect("/sellers");

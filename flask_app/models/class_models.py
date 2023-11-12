@@ -18,7 +18,7 @@ class Categories:
     def save(cls, data):
         query = """
             INSERT INTO categories (name)
-            VALUES (%(item_name)s);
+            VALUES (%(category_name)s);
         """
         result = connectToMySQL(cls.DB).query_db(query, data)
         return result
@@ -75,10 +75,10 @@ class Categories:
     @classmethod
     def check_valid(cls,data):
         is_valid=True
-        if not len(data['item_name'])>=3:
+        if not len(data['category_name'])>=3:
             is_valid=False
             flash("Name needs to be 3 characters or more.","categories")
-        if not len(data['item_name'])<=32:
+        if not len(data['category_name'])<=32:
             is_valid=False
             flash("Name must be 32 characters max.","categories")
         return is_valid;
@@ -249,3 +249,17 @@ class Items:
             return f"{math.floor(delta.total_seconds() / 60)} minute(s) ago"
         else:
             return f"{math.floor(delta.total_seconds())} second(s) ago"
+
+    @classmethod
+    def check_valid(cls,data):
+        is_valid=True
+        if not len(data['item_name'])>=3:
+            is_valid=False
+            flash("Name needs to be 3 characters or more.","items")
+        if not len(data['item_name'])<=64:
+            is_valid=False
+            flash("Name must be 32 characters max.","items")
+        #if not len(data['item_desc'])>=3:
+        #    is_valid=False
+        #    flash("Description needs to be 3 characters or more.","items")
+        return is_valid;
