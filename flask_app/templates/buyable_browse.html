@@ -30,56 +30,13 @@
 					<h2>Products</h2>
 					{% endif %}
 					<div class="items-box">
+						{% for i in items %}
 						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Item</h3>
-							<p>$12.00</p>
+							<img src="{{ url_for('static', filename='img/uploads/'+i.img) }}" alt="Item">
+							<h3>{{ i.name }}</h3>
+							<p>{{ i.price_str }}</p>
 						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Item Thinga A Thing</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Something Interesting Should Get A New</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Item</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Item</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Wow Nice Par Yes</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Item</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Snooping around as usual I see</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Item</h3>
-							<p>$12.00</p>
-						</div>
-						<div class="item-instance">
-							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
-							<h3>Come on dude, just beat it</h3>
-							<p>$12.00</p>
-						</div>
+						{% endfor %}
 					</div>
 					<div class="pagination">
 						<p>Previous</p>

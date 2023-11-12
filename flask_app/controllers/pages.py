@@ -13,6 +13,7 @@ from flask_app.models.class_models import Categories
 @app.route('/')
 def page_home():
     user=UserSession().check_status()
+    items=[]
     cats=Categories.get_all()
 
     cat_sel=-1
@@ -26,9 +27,10 @@ def page_home():
         search="";
     search_url=urllib.parse.quote(search, safe='')
     
-    items=Items.get_all_simple()
+    if search=="":
+        items=Items.get_all()
     print("Sanitize Test:", search_url)
-    return render_template("buyable_browse.html",user=user,cats=cats,cat_sel=cat_sel,search=search,search_url=search_url)
+    return render_template("buyable_browse.html",user=user,cats=cats,cat_sel=cat_sel,search=search,search_url=search_url,items=items)
 
 
 @app.errorhandler(404)
@@ -111,8 +113,8 @@ def page_sellers():
     if user.seller:
         items=Items.get_all_by_user(user.id)
         cats=Categories.get_all()
-        return render_template("buyable_sellerzone.html",user=user,cats=cats)
-    return render_template("buyable_sellerzone_consumer.html",user=user,cats=cats)
+        return render_template("buyable_sellerzone.html",user=user,items=items,cats=cats)
+    return render_template("buyable_sellerzone_consumer.html",user=user)
 
 # Add/Edit Pages
 

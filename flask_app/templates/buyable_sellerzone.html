@@ -62,11 +62,13 @@
 							<th>Date Created</th>
 							<th>Action</th>
 						</tr>
+						{% for i in items %}
 						<tr>
-							<td>Item</td>
-							<td>XX/XX/XX</td>
+							<td>{{ i.name }}</td>
+							<td>{{ i.when }}</td>
 							<td>Edit Delete</td>
 						</tr>
+						{% endfor %}
 					</table>
 					{% else %}
 					<div class="empty-table">

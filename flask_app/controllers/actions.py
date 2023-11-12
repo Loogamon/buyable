@@ -78,6 +78,15 @@ def action_item():
         session["prev_price"]=""
         session["prev_cat"]=""
         session["prev_description"]=""
+        data={
+        'name': request.form['item_name'],
+        'price': request.form['item_price'],
+        'img': f"{num}.{ext}",
+        'description': request.form['item_desc'],
+        'user_id': user.id,
+        'category_id': request.form['item_cat']
+        }
+        Items.save(data)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], f"{num}.{ext}"))
     
     return redirect("/sellers");

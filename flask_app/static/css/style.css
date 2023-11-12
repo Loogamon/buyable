@@ -195,7 +195,7 @@ h2 {
 
 .item-instance img {
 	margin: auto;
-	height: 120px;
+	height: 140px;
 }
 
 .item-instance:hover {
@@ -282,8 +282,11 @@ h2 {
 	font-family: 'Nunito', sans-serif;
 }
 
-input {
+input, select, textarea {
 	font-family: 'Nunito', sans-serif;
+}
+textarea {
+	padding: 4px;
 }
 
 /* Totally not taken somewhere else. */
