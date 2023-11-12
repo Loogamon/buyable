@@ -8,6 +8,7 @@ from flask_app.models.class_users import Users
 
 @app.route('/')
 def page_home():
-    test=Users.get_all();
-    print(test)
-    return f"Hello There! You can see me?<br>There are about {len(test)} users in buyable_schema.";
+    #test=Users.get_all();
+    #print(test)
+    #return f"Hello There! You can see me?<br>There are about {len(test)} users in buyable_schema.";
+    return render_template("buyable_browse.html")

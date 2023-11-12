@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% include 'template_meta.html' %}
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="header-box">
+				<div class="header-items">
+					{% include 'template_nav.html' %}
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="block-split">
+				<div class="block-items block" style="min-height: unset;">
+					<h2>Seller's Zone</h2>
+					<p>A control panel for various parts of the site.</p>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="block-split">
+				<div class="block-items block" style="min-height: unset;">
+					<h2>Branding Settings</h2>
+					<p style="margin-bottom: 10px;">You can input your information as a brand.<br>Leave the Brand Name blank, if you want to sell products with your name instead.</p>
+					<form class="reg" action="/" method="post">
+						<div class="editor-aa">
+							<label for="brand_name">Brand Name</label>
+							<input type="text" id="brand_name" name="brand_name"><br>
+						</div>
+						<div class="editor-aa">
+							<label for="brand_desc">Description</label>
+							<textarea id="brand_desc" name="brand_desc" rows="4">Blah Balh</textarea>
+						</div>
+						<input class="button logbutt" type="submit" value="Update Info">
+					</form>
+					<div class="editor-errors logbutt">
+						<p>There's some problems:</p>
+						<ul>
+							<li>Errors Here</li>
+							<li>Errors Here</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="block-split">
+				<div class="block-items block" style="min-height: unset;">
+					<h2>My Products</h2>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Date Created</th>
+							<th>Action</th>
+						</tr>
+						<tr>
+							<td>Item</td>
+							<td>XX/XX/XX</td>
+							<td>Edit Delete</td>
+						</tr>
+					</table>
+					<button class="button logbutt">Add Item</button>
+				</div>
+				<div class="block-items block" style="min-height: unset;">
+					<h2>Categories</h2>
+					<p style="margin-bottom: 10px;">Because there's no admin feature, this edits <em>all</em> categories, and the items within that don't belong the user.</p>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Date Created</th>
+							<th>Action</th>
+						</tr>
+						<tr>
+							<td>Item</td>
+							<td>XX/XX/XX</td>
+							<td>Edit Delete</tdh>
+						</tr>
+					</table>
+					<button class="button logbutt">Add Category</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

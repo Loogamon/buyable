@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% include 'template_meta.html' %}
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="header-box">
+				<div class="header-items">
+					{% include 'template_nav.html' %}
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="block-split">
+				<div class="block-categories block">
+					<h2>Categories</h2>
+					<ul>
+						<li>Item 1</li>
+						<li>Item 2</li>
+						<li>Item 3</li>
+					</ul>
+				</div>
+				<div class="block-items block">
+					<h2>Products</h2>
+					<div class="items-box">
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Item</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Item Thinga A Thing</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Something Interesting Should Get A New</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Item</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Item</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Wow Nice Par Yes</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Item</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Snooping around as usual I see</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Item</h3>
+							<p>$12.00</p>
+						</div>
+						<div class="item-instance">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+							<h3>Come on dude, just beat it</h3>
+							<p>$12.00</p>
+						</div>
+					</div>
+					<div class="pagination">
+						<p>Previous</p>
+						<p>Page 1</p>
+						<p>Next</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% include 'template_meta.html' %}
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="header-box">
+				<div class="header-items">
+					{% include 'template_nav.html' %}
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="block-split">
+				<div class="block-items block" style="min-height: unset;">
+					<div class="edit-split">
+						<div class="edit-left">
+							<img src="{{ url_for('static', filename='img/item.png') }}" alt="Item">
+						</div>
+						<div class="edit-right">
+							<div class="item-info">
+								<h2>Super Mario Bros. Wonder</h2>
+								<p class="price-box"><span class="price"><strong>Price:</strong> $12.99</span></p>
+								<p><strong>Seller:</strong> Nintendo<br><strong>Category:</strong> Games</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="block-categories block" style="min-height: unset;">
+					<h2>Buy Product</h2>
+					<div class="buy-box">
+					<p><strong>Total:</strong> $12.00</p>
+					<div class="quanity-form">					
+						<form>
+							<label style>Quanity: </label>
+							<select name="item_quanity">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+							<br><input style="margin-top: 32px;" class="button logbutt" type="submit" value="Add to Cart">
+						</form>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="block-split">
+				<div class="block-items block" style="min-height: unset;">
+					<h2>About Product</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget dolor eu lorem finibus rhoncus. Vestibulum turpis tortor, porttitor nec posuere ac, volutpat eget mauris. Nam ac nisi sollicitudin orci porttitor sagittis vitae in lorem. Aliquam molestie nisi tortor, et auctor diam mattis vel. Ut ornare, quam at gravida imperdiet, augue augue viverra dolor, sed tincidunt mauris dolor quis orci. Mauris sagittis porttitor mauris, sed mollis tortor lobortis sed. Maecenas ac volutpat ligula. Morbi efficitur iaculis ligula ac tincidunt. Sed ultrices sollicitudin purus, sit amet sagittis massa viverra sed. Nulla nec tempus leo, a aliquam quam. Cras blandit viverra urna, a mattis turpis congue sit amet. Donec a faucibus mauris. Vestibulum vitae ultricies nunc, in pulvinar eros. Donec gravida, arcu at laoreet finibus, nisl lacus lobortis nulla, volutpat tincidunt orci tortor id arcu.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
