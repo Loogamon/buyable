@@ -1,0 +1,49 @@
+Feature List TODO:
+
+
+[Browse]
+* Search, filters items by name and category
+
+
+[Seller's Zone]
+* Checks if you are a seller, or sends you to the bare bones template.
+** The ability to become a seller from the link. Have it check if you aren't already a seller.
+
+* My Products
+** Links to the product pages.
+** Edit/Delete Links work
+
+* Branding Settings
+** Ability to change your seller settings. Only have a validation for the max length for Brand Name.
+
+
+[Products Add/Edit]
+* Edit items, check if user
+** Try image uploading?
+* Delete items, check if user
+* Throw error is user is not a seller.
+
+
+[Shopping Cart]
+* Render Items in Cart
+* Count item prices together
+* Remove Items from Link
+* Shopping Cart Clear
+
+
+[Nav Bar]
+* Display # of items in cart for the user, counting the quanity.
+
+---
+
+[Products View]
+* Page implementation, viewing the item data.
+* Ordering, use JS for getting total.
+* Have description box visible, if there's a length bigger than 0.
+* Hide or lock the order box, if it's a guest viewing.
+
+
+[User View]
+* Viewing the user data. Throw error is user doesn't exist.
+* Show different data, if seller.
+** Have description box visible, if there's a length bigger than 0.

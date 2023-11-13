@@ -127,13 +127,13 @@ class Items:
         return items
 
     @classmethod
-    def get_all_by_category(cls,id):
+    def get_all_by_category(cls,cat):
         query = """
             SELECT * FROM items
             WHERE category_id=%(id)s
             ORDER BY items.name;
         """
-        data={"id": id}
+        data={"id": cat}
         results = connectToMySQL(cls.DB).query_db(query,data)
         if not results:
             return []
@@ -143,12 +143,11 @@ class Items:
         return items
 
     @classmethod
-    def get_all_by_search(cls,id):
-        query = """
-            SELECT * FROM items
-            ORDER BY items.name;
-        """
-        data={"id": id}
+    def get_all_by_search(cls,search,cat):
+        query = "SELECT * FROM items WHERE name like %(search)s ORDER BY name;"
+        if cat>-1:
+            query = "SELECT * FROM items WHERE name like %(search)s AND category_id=%(id)s ORDER BY name;"
+        data={"id": cat, "search": "%%"+search+"%%"}
         results = connectToMySQL(cls.DB).query_db(query,data)
         if not results:
             return []

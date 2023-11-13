@@ -28,7 +28,12 @@ def page_home():
     search_url=urllib.parse.quote(search, safe='')
     
     if search=="":
-        items=Items.get_all()
+        if cat_sel>-1:
+            items=Items.get_all_by_category(cat_sel)
+        else:
+            items=Items.get_all()
+    else:
+        items=Items.get_all_by_search(search,cat_sel)
     print("Sanitize Test:", search_url)
     return render_template("buyable_browse.html",user=user,cats=cats,cat_sel=cat_sel,search=search,search_url=search_url,items=items)
 
