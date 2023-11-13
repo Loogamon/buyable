@@ -260,7 +260,28 @@ def page_item():
 @app.route('/user/view')
 def page_user():
     user=UserSession().check_status()
-    return render_template("buyable_user_nonseller.html",user=user);
+    view_id=request.args.get('id')
+    if view_id==None:
+        return redirect("/error?t=7")
+    if view_id.isdigit():
+        view_id=int(view_id)
+    else:
+        return redirect("/error?t=1")
+    user_data=Users.get_one(view_id)
+    if user_data==None:
+        return redirect("/error?t=1")
+    seller=Users.is_seller(view_id)
+    seller_id=-1
+    if seller:
+        seller_id=Users.get_seller_id(view_id)
+        exa=Sellers.get_one(seller_id)
+        person={
+        "name": Users.user_alias(view_id),
+        "desc": exa['description']
+        }
+        items=Items.get_all_by_user(view_id)
+        return render_template("buyable_user.html",user=user,user_data=user_data,person=person,items=items);
+    return render_template("buyable_user_nonseller.html",user=user,user_data=user_data);
 
 #-------------------
 # ERRORS

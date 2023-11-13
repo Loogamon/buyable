@@ -45,7 +45,7 @@ In retrospect, quanity was a terrible idea.
 
 [Products View]
 * [X] Page implementation, viewing the item data.
-* Ordering, [X] use JS for getting total.
+* [X] Ordering, [X] use JS for getting total.
 * [X] Have description box visible, if there's a length bigger than 0.
 * [X] Hide or lock the order box, if it's a guest viewing.
 ** [X] Might be logical too to block, if you are the seller of the item.
