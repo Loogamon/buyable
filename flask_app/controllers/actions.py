@@ -11,6 +11,7 @@ from flask_app.models.class_users import Users
 from flask_app.models.class_models import Items
 from flask_app.models.class_models import Categories
 from flask_app.models.class_sellers import Sellers
+from flask_app.models.class_shopping_cart import MyCart
 
 @app.route('/action/category',methods=['POST'])
 def action_category():
@@ -149,3 +150,37 @@ def action_seller():
         flash("Updated Info Successfully!","branding_good")
         print(data)
     return redirect("/sellers");
+    
+@app.route('/action/cart',methods=['POST'])
+def action_cart():
+    num=0
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+        
+    view_id=request.args.get('item')
+    if view_id==None:
+        return redirect("/error?t=7")
+    if view_id.isdigit():
+        view_id=int(view_id)
+    else:
+        return redirect("/error?t=2")
+    item=Items.get_one(view_id)
+    if item==None:
+        return redirect("/error?t=2")
+    num=request.form['item_quanity']
+    check_loc=MyCart.check_in_cart(view_id,user.id)
+    print("Quantity:",num)
+    print("Product ID:",view_id)
+    print("User ID:",user.id)
+    print("[CHECK IN CART]",check_loc)
+    data={
+    "item_id": view_id,
+    "quanity": num,
+    "user_id": user.id
+    }
+    if check_loc==None:
+        MyCart.save(data)
+    else:
+        MyCart.update(data)
+    return redirect("/mycart");

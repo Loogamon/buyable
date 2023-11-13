@@ -196,6 +196,9 @@ h2 {
 .item-instance img {
 	margin: auto;
 	height: 140px;
+	background-color: white;
+	padding: 5px;
+	border-radius: 10px;
 }
 
 .item-instance:hover {
@@ -220,6 +223,10 @@ h2 {
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
+	border: 2px solid #e6e6e6;
+	padding: 5px;
+	border-radius: 10px;
+	user-select: none;
 }
 
 .mycart-row:last-child {
@@ -232,7 +239,9 @@ h2 {
 	display: flex;
 	align-items: center;
 	padding: 10px;
-	background-color: #e6e6e6;
+	/* background-color: #e6e6e6; */
+	border-radius: 5px;
+	border: 2px dashed #e6e6e6;
 }
 
 .mycart-column:last-child {
@@ -240,7 +249,7 @@ h2 {
 }
 
 .mycart-column:hover {
-	background-color: #d9d9d9;
+	/* background-color: #d9d9d9; */
 }
 
 .mycart-item {
@@ -264,6 +273,12 @@ h2 {
 
 .item {
 	flex: 4;
+	user-select: none;
+    cursor: pointer;
+}
+
+.item:hover {
+	background-color: #e6e6e6;
 }
 
 .quanity {

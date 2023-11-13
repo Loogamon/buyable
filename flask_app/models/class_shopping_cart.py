@@ -85,3 +85,34 @@ class MyCart:
         """
         data = {"id": id}
         return connectToMySQL(cls.DB).query_db(query, data)
+        
+    @classmethod
+    def check_in_cart(cls,item_id,user_id):
+        loc_id=None;
+        query = "SELECT * FROM shopping_cart WHERE user_id= %(user_id)s AND item_id=%(item_id)s;"
+        data={"user_id": user_id, "item_id": item_id}
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        if not results:
+            return None;
+        items = []
+        if len(results)>0:
+            loc_id=results[0]['id']
+        return loc_id
+        
+    @classmethod
+    def save(cls, data):
+        query = """
+            INSERT INTO shopping_cart (item_id,quanity,user_id)
+            VALUES (%(item_id)s,%(quanity)s,%(user_id)s);
+        """
+        result = connectToMySQL(cls.DB).query_db(query, data)
+        return result
+    
+    @classmethod
+    def update(cls, data):
+        query = """
+            UPDATE shopping_cart
+            SET quanity = quanity+%(quanity)s, updated_at=NOW()
+            WHERE item_id = %(item_id)s AND user_id=%(user_id)s;
+        """
+        return connectToMySQL(cls.DB).query_db(query, data)

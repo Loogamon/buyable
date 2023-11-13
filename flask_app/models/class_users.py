@@ -124,6 +124,7 @@ class Users:
             is_valid = True
         return is_valid
     
+    
     @classmethod 
     def get_seller_id(cls,my_id):
         ret_id=-1
@@ -150,3 +151,17 @@ class Users:
         for item in results:
             count+=item['quanity']
         return count
+    
+    #SELECT users.id,first_name,last_name,name FROM users LEFT JOIN sellers ON user_id=users.id;
+    @classmethod 
+    def user_alias(cls,my_id):
+        name=""
+        query = "SELECT users.id,first_name,last_name,name FROM users LEFT JOIN sellers ON user_id=users.id WHERE users.id=%(id)s;"
+        data={ "id": my_id }
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        for item in results:
+            name=f"{item['first_name']} {item['last_name']}"
+            if not item['name']==None:
+                if len(item['name'])>0:
+                    name=item['name']
+        return name

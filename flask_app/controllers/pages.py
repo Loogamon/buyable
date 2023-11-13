@@ -12,6 +12,12 @@ from flask_app.models.class_models import Categories
 from flask_app.models.class_sellers import Sellers
 from flask_app.models.class_shopping_cart import MyCart
 
+DISALLOW_USER_BUY_OWN=False
+
+#-------------------
+# Home Essentials
+#-------------------
+
 @app.route('/')
 def page_home():
     user=UserSession().check_status()
@@ -51,7 +57,9 @@ def page_user_logout():
     session.clear();
     return redirect("/user/login");
 
+#-------------------
 # Shopping Cart & Seller's Zone
+#-------------------
 
 @app.route('/mycart')
 def page_cart():
@@ -94,7 +102,9 @@ def page_sellers():
         return render_template("buyable_sellerzone.html",user=user,items=items,cats=cats,seller=seller)
     return render_template("buyable_sellerzone_consumer.html",user=user)
 
+#-------------------
 # Add/Edit Pages
+#-------------------
 
 @app.route('/category/add')
 def page_category_add():
@@ -216,8 +226,42 @@ def page_item_edit():
         product.delete(edit_id,user.id)
         return redirect("/sellers#products");
     return render_template("buyable_itemform_edit.html",user=user,cats=cats,item=item)
-    
-    
+
+#-------------------
+# View Pages
+#-------------------
+
+@app.route('/item/view')
+def page_item():
+    allow_buy=False
+    psst="You must be logged in to purchase."
+    user=UserSession().check_status()
+    if user.logged_on:
+        psst=""
+        allow_buy=True
+    view_id=request.args.get('id')
+    if view_id==None:
+        return redirect("/error?t=7")
+    if view_id.isdigit():
+        view_id=int(view_id)
+    else:
+        return redirect("/error?t=2")
+    item=Items.get_one(view_id)
+    if item==None:
+        return redirect("/error?t=2")
+    if user.logged_on and DISALLOW_USER_BUY_OWN:
+        if item.user_id==user.id:
+            allow_buy=False
+            psst="Oops. Why would you buy something that you are already selling?"
+    cat=Categories.get_one(item.category_id);
+    author=Users.user_alias(item.user_id);
+    return render_template("buyable_item.html",user=user,item=item, allow_buy=allow_buy, psst=psst, cat=cat, author=author);
+
+@app.route('/user/view')
+def page_user():
+    user=UserSession().check_status()
+    return render_template("buyable_user_nonseller.html",user=user);
+
 #-------------------
 # ERRORS
 #-------------------
@@ -276,4 +320,7 @@ def page_error():
     if num==8:
         er['title']="Sellers Only";
         er['desc']="Oops, you can't go to this page yet, because you hadn't signed up as a seller.";
+    if num==9:
+        er['title']="Loading Error";
+        er['desc']="Okay, I have no idea how this could happen.";
     return render_template("buyable_error.html",user=user,er=er);
