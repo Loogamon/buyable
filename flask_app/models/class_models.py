@@ -42,7 +42,6 @@ class Categories:
         data = {'id': category_id}
         results =connectToMySQL(cls.DB).query_db(query, data)
         if (not len(results)):
-            print("BAD DATA")
             return None;
         return cls(results[0])
     
@@ -186,7 +185,7 @@ class Items:
         query = """
             UPDATE items
             SET name = %(name)s, price = %(price)s, img = %(img)s,
-                description = %(description)s, user_id = %(user_id)s, category_id = %(category_id)s
+                description = %(description)s, user_id = %(user_id)s, category_id = %(category_id)s, updated_at=NOW()
             WHERE id = %(id)s;
         """
         return connectToMySQL(cls.DB).query_db(query, data)

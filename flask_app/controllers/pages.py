@@ -9,6 +9,7 @@ from flask_app.models.class_usersession import UserSession
 from flask_app.models.class_users import Users
 from flask_app.models.class_models import Items
 from flask_app.models.class_models import Categories
+from flask_app.models.class_sellers import Sellers
 
 @app.route('/')
 def page_home():
@@ -63,10 +64,16 @@ def page_sellers():
     user=UserSession().check_status()
     if not user.logged_on:
         return redirect('/user/login')
+    action=request.args.get('action')
+    if action=="join":
+        if not user.seller:
+            Users.add_seller(user.id)
+        return redirect("/sellers")
     if user.seller:
         items=Items.get_all_by_user(user.id)
         cats=Categories.get_all()
-        return render_template("buyable_sellerzone.html",user=user,items=items,cats=cats)
+        seller=Sellers.get_one(user.seller_id)
+        return render_template("buyable_sellerzone.html",user=user,items=items,cats=cats,seller=seller)
     return render_template("buyable_sellerzone_consumer.html",user=user)
 
 # Add/Edit Pages

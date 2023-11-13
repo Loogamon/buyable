@@ -25,14 +25,14 @@
 				<div class="block-items block" style="min-height: unset;">
 					<h2>Brand Settings</h2>
 					<p style="margin-bottom: 10px;">You can input your information as a brand, which can be seen on your <a href="/user/view?id={{ user.id }}">profile page</a>.<br>Leave the Brand Name blank, if you want to sell products with your name instead.</p>
-					<form class="reg" action="/" method="post">
+					<form class="reg" action="/action/seller?action=edit" method="post">
 						<div class="editor-aa">
 							<label for="brand_name">Brand Name</label>
-							<input type="text" id="brand_name" name="brand_name"><br>
+							<input type="text" id="brand_name" name="brand_name" value="{{ seller.name }}"><br>
 						</div>
 						<div class="editor-aa">
 							<label for="brand_desc">Description</label>
-							<textarea id="brand_desc" name="brand_desc" rows="4">Blah Balh</textarea>
+							<textarea id="brand_desc" name="brand_desc" rows="4">{{ seller.description }}</textarea>
 						</div>
 						<input class="button logbutt" type="submit" value="Update Info">
 					</form>
@@ -45,6 +45,16 @@
 							<li>{{message}}</li>
 							{% endfor %}
 						</ul>
+					</div>
+					{% endif %}
+					{% endwith %}
+					
+					{% with messages = get_flashed_messages(category_filter=['branding_good']) %}
+					{% if messages %}
+					<div class="editor-confirms logbutt">
+						{% for message in messages %}
+						<p>{{message}}</p>
+						{% endfor %}
 					</div>
 					{% endif %}
 					{% endwith %}

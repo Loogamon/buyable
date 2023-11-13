@@ -10,6 +10,7 @@ from flask_app.models.class_usersession import UserSession
 from flask_app.models.class_users import Users
 from flask_app.models.class_models import Items
 from flask_app.models.class_models import Categories
+from flask_app.models.class_sellers import Sellers
 
 @app.route('/action/category',methods=['POST'])
 def action_category():
@@ -122,3 +123,29 @@ def action_item():
         print("[Writing]",data)
         Items.update(data)
     return redirect("/sellers#products");
+    
+@app.route('/action/seller',methods=['POST'])
+def action_seller():
+    num=0
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    if not user.seller:
+        return redirect("/error?t=8")
+    action=request.args.get('action')
+    print(request.form)
+    print("[Action]",action)
+    if action=="edit":
+        data={
+            'brand_name': request.form['brand_name'],
+            'brand_desc': request.form['brand_desc'],
+            'id': user.seller_id,
+            'user_id': user.id
+        }
+        if len(data['brand_name'])>32:
+            flash("Brand Name is too long. Must be 32 characters max.","branding")
+            return redirect("/sellers");
+        Sellers.update(data)
+        flash("Updated Info Successfully!","branding_good")
+        print(data)
+    return redirect("/sellers");

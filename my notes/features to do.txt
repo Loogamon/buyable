@@ -7,14 +7,14 @@ Feature List TODO:
 
 [Seller's Zone]
 * [X] Checks if you are a seller, or sends you to the bare bones template.
-** The ability to become a seller from the link. Have it check if you aren't already a seller.
+** [X] The ability to become a seller from the link. Have it check if you aren't already a seller.
 
 * [X] My Products
 ** [X] Links to the product pages.
 ** [X] Edit/Delete Links work
 
-* Branding Settings
-** Ability to change your seller settings. Only have a validation for the max length for Brand Name.
+* [X] Branding Settings
+** [X] Ability to change your seller settings. Only have a validation for the max length for Brand Name.
 
 
 [Category Edit]

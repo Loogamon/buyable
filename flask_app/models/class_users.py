@@ -132,5 +132,11 @@ class Users:
         results = connectToMySQL(cls.DB).query_db(query,data)
         if len(results) >= 1:
             ret_id=results[0]['id']
-        print("[PLEASE GET A LIFE]",ret_id)
         return ret_id
+        
+    @classmethod
+    def add_seller(cls,my_id):
+        query="INSERT INTO sellers (name,description,user_id) VALUES ('','',%(id)s);"
+        data= { "id": my_id }
+        result = connectToMySQL(cls.DB).query_db(query,data)
+        return result;
