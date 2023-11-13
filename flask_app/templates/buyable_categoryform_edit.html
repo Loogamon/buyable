@@ -22,7 +22,7 @@
 							<label for="category_name">Name</label>
 							<input type="text" id="item_name" name="category_name" value="{{ item['name'] }}"><br>
 						</div>
-						<input class="button logbutt" type="submit" value="Update Category"><button type="button" onclick='window.location.href = "/category/edit?id={{ item["id"] }}&action=delete"' style="margin-left: 10px;" class="button logbutt">Delete Category</button>
+						<input class="button logbutt" type="submit" value="Update Category"><button type="button" onclick='delete_it()' style="margin-left: 10px;" class="button logbutt">Delete Category</button>
 					</form>
 					{% with messages = get_flashed_messages(category_filter=['categories']) %}
 					{% if messages %}
@@ -66,4 +66,11 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	function delete_it()
+	{
+		if (confirm("Are you sure you want to delete {{ cat.name }}?\nThis will delete ALL products in it."))
+			window.location.href = "/category/edit?id={{ item["id"] }}&action=delete";
+	}
+</script>
 </html>
