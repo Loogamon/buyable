@@ -21,7 +21,7 @@
 						{% for i in items %}
 						<div class="mycart-row">
 							<div class="mycart-column mycart-item itemblocko"><img class="item-img" src="{{ url_for('static', filename='img/uploads/'+i.item_img) }}" alt="Item"></div>
-							<div onclick="goto_product({{ i.item_id }})" class="mycart-column mycart-item item"><div class="center"><p class="item-name">{{ i.item_name }}</p><p>{{ i.item_price_str }}</p></div></div>
+							<div onclick="goto_product({{ i.item_id }})" class="mycart-column mycart-item item"><div class="center"><p class="item-name">{{ i.item_name }}</p><p>{{ i.item_price_str }}</p>{% if i.item_price!=i.item_total %}<p style="font-size: small; font-style: italic; margin-top: 5px;">(x{{ i.quantity }} Total: {{ i.item_total_str }})</p>{% endif %}</div></div>
 							<div class="mycart-column mycart-item quanity"><div class="center"><p class="item-name">Quantity:</p><p>{{ i.quantity }}</p><button onclick="cart_delete( {{ i.id }} )" type="button" class="remove-button">Remove</button></div></div>
 						</div>
 						{% endfor %}
