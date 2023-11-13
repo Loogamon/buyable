@@ -102,6 +102,8 @@ class Items:
         self.category = None
         self.when=self.time_span()
         self.price_str='${:,.2f}'.format(data['price'])
+        if data['price']==0:
+            self.price_str="Free";
     @classmethod
     def save(cls, data):
         query = """

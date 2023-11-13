@@ -256,6 +256,12 @@ h2 {
 	font-weight: bold;
 }
 
+.itemblocko {
+	flex: 2;
+	display: flex;
+	justify-content: center;
+}
+
 .item {
 	flex: 4;
 }

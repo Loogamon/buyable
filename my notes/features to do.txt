@@ -31,14 +31,15 @@ Feature List TODO:
 
 
 [Shopping Cart]
-* Render Items in Cart
-* Count item prices together
-* Remove Items from Link
-* Shopping Cart Clear
+* [X] Render Items in Cart
+* [X] Count item prices together
+* [X] Remove Items from Link
+* [X] Shopping Cart Clear
 
+In retrospect, quanity was a terrible idea.
 
 [Nav Bar]
-* Display # of items in cart for the user, counting the quanity.
+* [X] Display # of items in cart for the user, counting the quanity.
 
 ---
 

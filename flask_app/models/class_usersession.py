@@ -18,6 +18,7 @@ class UserSession:
             self.user_name=f"{user.first_name} {user.last_name}"
             self.logged_on=True
             self.seller=Users.is_seller(user.id)
+            self.cart=Users.cart_count(user.id);
             if self.seller:
                 self.seller_id=Users.get_seller_id(user.id)
             return self;

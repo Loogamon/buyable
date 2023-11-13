@@ -10,6 +10,7 @@ from flask_app.models.class_users import Users
 from flask_app.models.class_models import Items
 from flask_app.models.class_models import Categories
 from flask_app.models.class_sellers import Sellers
+from flask_app.models.class_shopping_cart import MyCart
 
 @app.route('/')
 def page_home():
@@ -57,7 +58,24 @@ def page_cart():
     user=UserSession().check_status()
     if not user.logged_on:
         return redirect('/user/login')
-    return render_template("buyable_shopping_cart.html",user=user)
+    action=request.args.get('action')
+    edit_id=request.args.get('id')
+    if action=="clear":
+        MyCart.clear(user.id)
+        return redirect('/');
+    if action=="delete":
+        print(edit_id)
+        if not edit_id==None:
+            MyCart.delete_by_user(edit_id,user.id)
+        return redirect('/mycart');
+    items=MyCart.get_all_by_user(user.id)
+    
+    total=MyCart.get_all_by_user_total(user.id);
+    total_str='${:,.2f}'.format(total)
+    
+    if total==0:
+        total_str="Free"
+    return render_template("buyable_shopping_cart.html",user=user,items=items,total=total_str)
 
 @app.route('/sellers')
 def page_sellers():

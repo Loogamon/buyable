@@ -140,3 +140,13 @@ class Users:
         data= { "id": my_id }
         result = connectToMySQL(cls.DB).query_db(query,data)
         return result;
+        
+    @classmethod 
+    def cart_count(cls,my_id):
+        count=0
+        query = "SELECT quanity,user_id FROM shopping_cart WHERE user_id = %(id)s;"
+        data={ "id": my_id }
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        for item in results:
+            count+=item['quanity']
+        return count
