@@ -2,26 +2,32 @@ Feature List TODO:
 
 
 [Browse]
-* Search, filters items by name and category
+* [X] Search, filters items by name and category
 
 
 [Seller's Zone]
-* Checks if you are a seller, or sends you to the bare bones template.
+* [X] Checks if you are a seller, or sends you to the bare bones template.
 ** The ability to become a seller from the link. Have it check if you aren't already a seller.
 
-* My Products
-** Links to the product pages.
-** Edit/Delete Links work
+* [X] My Products
+** [X] Links to the product pages.
+** [X] Edit/Delete Links work
 
 * Branding Settings
 ** Ability to change your seller settings. Only have a validation for the max length for Brand Name.
 
 
+[Category Edit]
+* [X] Display items on page
+
+
 [Products Add/Edit]
-* Edit items, check if user
-** Try image uploading?
-* Delete items, check if user
-* Throw error is user is not a seller.
+* [X] Checks for existence editting
+* [X] Edit loads data
+* [X] Edit items, [X] check if user
+** [X] Try image uploading?
+* [X] Delete items, check if user
+* [X] Throw error is user is not a seller. [Sellers is not implemented yet, but should do.]
 
 
 [Shopping Cart]
@@ -41,6 +47,7 @@ Feature List TODO:
 * Ordering, use JS for getting total.
 * Have description box visible, if there's a length bigger than 0.
 * Hide or lock the order box, if it's a guest viewing.
+** Might be logical too to block, if you are the seller of the item.
 
 
 [User View]

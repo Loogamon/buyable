@@ -8,14 +8,18 @@ class UserSession:
         self.logged_on=False
         self.cart=0
         self.seller=False
+        self.seller_id=-1
     def check_status(self):
         self.cart=0
-        self.seller=True
+        self.seller=False
         if "user_loggedon" in session:
             user=Users.get_userinfo(session['user_email'])
             self.id=user.id
             self.user_name=f"{user.first_name} {user.last_name}"
             self.logged_on=True
+            self.seller=Users.is_seller(user.id)
+            if self.seller:
+                self.seller_id=Users.get_seller_id(user.id)
             return self;
         self.logged_on=False
         return self;

@@ -31,7 +31,7 @@
 					{% endif %}
 					<div class="items-box">
 						{% for i in items %}
-						<div class="item-instance">
+						<div onclick="goto_product({{i.id}})" class="item-instance">
 							<img src="{{ url_for('static', filename='img/uploads/'+i.img) }}" alt="Item">
 							<h3>{{ i.name }}</h3>
 							<p>{{ i.price_str }}</p>

@@ -50,7 +50,7 @@ class Categories:
     def update(cls, data):
         query = """
             UPDATE categories
-            SET name = %(item_name)s, updated_at=NOW()
+            SET name = %(category_name)s, updated_at=NOW()
             WHERE id = %(item_id)s;
         """
         return connectToMySQL(cls.DB).query_db(query, data)
@@ -96,7 +96,7 @@ class Items:
         self.img = data['img']
         self.description = data['description']
         self.user_id = data['user_id']
-        self.category = data['category_id']
+        self.category_id = data['category_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.owner = None
@@ -185,16 +185,16 @@ class Items:
     def update(cls, data):
         query = """
             UPDATE items
-            SET name = %(name)s, price = %(price)s, img_url = %(img_url)s,
+            SET name = %(name)s, price = %(price)s, img = %(img)s,
                 description = %(description)s, user_id = %(user_id)s, category_id = %(category_id)s
             WHERE id = %(id)s;
         """
         return connectToMySQL(cls.DB).query_db(query, data)
     
     @classmethod
-    def delete(cls, id):
-        query = "DELETE FROM items WHERE id = %(id)s;"
-        data = {"id": id}
+    def delete(cls, id, user_id):
+        query = "DELETE FROM items WHERE id = %(id)s AND user_id= %(user_id)s;"
+        data = {"id": id, "user_id": user_id}
         return connectToMySQL(cls.DB).query_db(query, data)
 
     @classmethod

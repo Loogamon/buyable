@@ -113,3 +113,24 @@ class Users:
             return f"{math.floor(delta.total_seconds() / 60)} minute(s) ago"
         else:
             return f"{math.floor(delta.total_seconds())} second(s) ago"
+    
+    @classmethod 
+    def is_seller(cls,my_id):
+        is_valid=False
+        query = "SELECT * FROM sellers WHERE user_id = %(id)s;"
+        data={ "id": my_id }
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        if len(results) >= 1:
+            is_valid = True
+        return is_valid
+    
+    @classmethod 
+    def get_seller_id(cls,my_id):
+        ret_id=-1
+        query = "SELECT * FROM sellers WHERE user_id = %(id)s;"
+        data={ "id": my_id }
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        if len(results) >= 1:
+            ret_id=results[0]['id']
+        print("[PLEASE GET A LIFE]",ret_id)
+        return ret_id

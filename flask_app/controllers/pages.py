@@ -37,6 +37,166 @@ def page_home():
     print("Sanitize Test:", search_url)
     return render_template("buyable_browse.html",user=user,cats=cats,cat_sel=cat_sel,search=search,search_url=search_url,items=items)
 
+@app.route('/user/login')
+def page_login():
+    user=UserSession().check_status()
+    if user.logged_on:
+        return redirect('/user/logout')
+    return render_template("buyable_login.html",user=user)
+
+@app.route('/user/logout')
+def page_user_logout():
+    session.clear();
+    return redirect("/user/login");
+
+# Shopping Cart & Seller's Zone
+
+@app.route('/mycart')
+def page_cart():
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    return render_template("buyable_shopping_cart.html",user=user)
+
+@app.route('/sellers')
+def page_sellers():
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    if user.seller:
+        items=Items.get_all_by_user(user.id)
+        cats=Categories.get_all()
+        return render_template("buyable_sellerzone.html",user=user,items=items,cats=cats)
+    return render_template("buyable_sellerzone_consumer.html",user=user)
+
+# Add/Edit Pages
+
+@app.route('/category/add')
+def page_category_add():
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    if not user.seller:
+        return redirect("/error?t=8")
+    item={ "name": "" }
+    if 'prev_name' in session:
+        item["name"]=session["prev_name"]
+        session["prev_name"]=""
+    return render_template("buyable_categoryform.html",user=user,item=item)
+
+@app.route('/category/edit')
+def page_category_edit():
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    if not user.seller:
+        return redirect("/error?t=8")
+    edit_id=request.args.get('id')
+    action=request.args.get('action')
+    if edit_id==None:
+        return redirect("/error?t=7")
+    if edit_id.isdigit():
+        edit_id=int(edit_id)
+    else:
+        return redirect("/error?t=3")
+    item={ "name": "", "id": edit_id }
+    cat=Categories.get_one(edit_id)
+    if cat==None:
+        return redirect("/error?t=3")
+    if action=="delete":
+        Categories.delete(edit_id)
+        return redirect("/sellers#categories")
+    item['name']=cat.name
+    cat_items=Items.get_all_by_category(edit_id)
+    return render_template("buyable_categoryform_edit.html",user=user,item=item,cat=cat,items=cat_items)
+
+@app.route('/item/add')
+def page_item_add():
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    if not user.seller:
+        return redirect("/error?t=8")
+    cats=Categories.get_all()
+    if not len(cats)>0:
+        return redirect("/error?t=6")
+    item={ 
+    "name": "",
+    "price": "",
+    "cat": "",
+    "image": "",
+    "description": ""
+    }
+    if 'prev_name' in session:
+        item["name"]=session["prev_name"]
+        session["prev_name"]=""
+
+    if 'prev_price' in session:
+        item["price"]=session["prev_price"]
+        session["prev_price"]=""
+
+    if 'prev_cat' in session:
+        if session['prev_cat'].isdigit():
+            item["cat"]=int(session["prev_cat"])
+        session["prev_cat"]=""
+    
+    if 'prev_image' in session:
+        item["image"]=session["prev_image"]
+        session["prev_image"]=""
+
+    if 'prev_description' in session:
+        item["description"]=session["prev_description"]
+        session["prev_description"]=""
+
+    return render_template("buyable_itemform.html",user=user,cats=cats,item=item)
+
+@app.route('/item/edit')
+def page_item_edit():
+    user=UserSession().check_status()
+    if not user.logged_on:
+        return redirect('/user/login')
+    if not user.seller:
+        return redirect("/error?t=8")
+    cats=Categories.get_all()
+    if not len(cats)>0:
+        return redirect("/error?t=6")
+    
+    edit_id=request.args.get('id')
+    action=request.args.get('action')
+    if edit_id==None or action==None:
+        return redirect("/error?t=7")
+    if edit_id.isdigit():
+        edit_id=int(edit_id)
+    else:
+        return redirect("/error?t=2")
+    
+    item={ "name": "", "id": edit_id }
+    product=Items.get_one(edit_id)
+    
+    if product==None:
+        return redirect("/error?t=2")
+    if product.user_id != user.id:
+        return redirect("/error?t=5")
+    
+    item={
+    "id": product.id,
+    "name": product.name,
+    "price": product.price,
+    "cat": product.category_id,
+    "image": product.img,
+    "desc": product.description
+    }
+    print(item)
+    if action=="delete":
+        product.delete(edit_id,user.id)
+        return redirect("/sellers#products");
+    return render_template("buyable_itemform_edit.html",user=user,cats=cats,item=item)
+    
+    
+#-------------------
+# ERRORS
+#-------------------
+
 
 @app.errorhandler(404)
 def page_404(e):
@@ -81,125 +241,14 @@ def page_error():
         er['desc']="Oops, there's no category here.";
     if num==5:
         er['title']="User Error";
-        er['desc']="You are trying to edit something that doesn't belong to you.";
+        er['desc']="You are trying to edit or delete something that doesn't belong to you.";
     if num==6:
         er['title']="No Categories Found";
         er['desc']="You can't add nor edit a product, if there's no categories present.";
+    if num==7:
+        er['title']="Missing Parameters";
+        er['desc']="Oops, the needed parameters aren't there.";
+    if num==8:
+        er['title']="Sellers Only";
+        er['desc']="Oops, you can't go to this page yet, because you hadn't signed up as a seller.";
     return render_template("buyable_error.html",user=user,er=er);
-
-#----
-
-@app.route('/user/login')
-def page_login():
-    user=UserSession().check_status()
-    if user.logged_on:
-        return redirect('/user/logout')
-    return render_template("buyable_login.html",user=user)
-
-@app.route('/user/logout')
-def page_user_logout():
-    session.clear();
-    return redirect("/user/login");
-
-# Shopping Cart & Seller's Zone
-
-@app.route('/mycart')
-def page_cart():
-    user=UserSession().check_status()
-    if not user.logged_on:
-        return redirect('/user/login')
-    return render_template("buyable_shopping_cart.html",user=user)
-
-@app.route('/sellers')
-def page_sellers():
-    user=UserSession().check_status()
-    if not user.logged_on:
-        return redirect('/user/login')
-    if user.seller:
-        items=Items.get_all_by_user(user.id)
-        cats=Categories.get_all()
-        return render_template("buyable_sellerzone.html",user=user,items=items,cats=cats)
-    return render_template("buyable_sellerzone_consumer.html",user=user)
-
-# Add/Edit Pages
-
-@app.route('/category/add')
-def page_category_add():
-    user=UserSession().check_status()
-    if not user.logged_on:
-        return redirect('/user/login')
-    item={ "name": "" }
-    if 'prev_name' in session:
-        item["name"]=session["prev_name"]
-        session["prev_name"]=""
-    return render_template("buyable_categoryform.html",user=user,item=item)
-
-@app.route('/category/edit')
-def page_category_edit():
-    user=UserSession().check_status()
-    if not user.logged_on:
-        return redirect('/user/login')
-    edit_id=request.args.get('id')
-    action=request.args.get('action')
-    if edit_id.isdigit():
-        edit_id=int(edit_id)
-    else:
-        return redirect("/error?t=3")
-    item={ "name": "", "id": edit_id }
-    cat=Categories.get_one(edit_id)
-    if cat==None:
-        return redirect("/error?t=3")
-    if action=="delete":
-        Categories.delete(edit_id)
-        return redirect("/sellers")
-    item['name']=cat.name
-    cat_items=Items.get_all_by_category(edit_id)
-    return render_template("buyable_categoryform_edit.html",user=user,item=item,cat=cat,cat_items=cat_items)
-
-@app.route('/item/add')
-def page_item_add():
-    user=UserSession().check_status()
-    if not user.logged_on:
-        return redirect('/user/login')
-    cats=Categories.get_all()
-    if not len(cats)>0:
-        return redirect("/error?t=6")
-    item={ 
-    "name": "",
-    "price": "",
-    "cat": "",
-    "image": "",
-    "description": ""
-    }
-    if 'prev_name' in session:
-        item["name"]=session["prev_name"]
-        session["prev_name"]=""
-
-    if 'prev_price' in session:
-        item["price"]=session["prev_price"]
-        session["prev_price"]=""
-
-    if 'prev_cat' in session:
-        if session['prev_cat'].isdigit():
-            item["cat"]=int(session["prev_cat"])
-        session["prev_cat"]=""
-    
-    if 'prev_image' in session:
-        item["image"]=session["prev_image"]
-        session["prev_image"]=""
-
-    if 'prev_description' in session:
-        item["description"]=session["prev_description"]
-        session["prev_description"]=""
-
-    return render_template("buyable_itemform.html",user=user,cats=cats,item=item)
-
-@app.route('/item/edit')
-def page_item_edit():
-    user=UserSession().check_status()
-    if not user.logged_on:
-        return redirect('/user/login')
-    cats=Categories.get_all()
-    if not len(cats)>0:
-        return redirect("/error?t=6")
-    return render_template("buyable_itemform_edit.html",user=user,cats=cats)
