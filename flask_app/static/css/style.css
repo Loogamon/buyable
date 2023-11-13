@@ -63,10 +63,43 @@ h2 {
 }
 
 .header-logo h1 {
+	user-select: none;
 }
 
 .header-nav li {
 
+}
+
+.header-logo a:link {
+	text-decoration: inherit;
+    color: inherit;
+    user-select: none;
+    cursor: pointer;
+}
+
+.header-logo a:visited {
+	text-decoration: inherit;
+    color: inherit;
+    user-select: none;
+    cursor: pointer;
+}
+
+.header-nav li a:link {
+	text-decoration: inherit;
+    color: inherit;
+    /*user-select: none;*/
+    cursor: pointer;
+}
+
+.header-nav li a:visited {
+	text-decoration: inherit;
+    color: inherit;
+    /*user-select: none;*/
+    cursor: pointer;
+}
+
+.header-nav li a:hover {
+	text-decoration: underline;
 }
 
 .header-nav ul {
@@ -137,6 +170,8 @@ h2 {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	background-color: #e6e6e6;
+	user-select: none;
+    cursor: pointer;
 	/*border: 2px solid black;*/
 }
 
@@ -160,7 +195,10 @@ h2 {
 
 .item-instance img {
 	margin: auto;
-	height: 120px;
+	height: 140px;
+	background-color: white;
+	padding: 5px;
+	border-radius: 10px;
 }
 
 .item-instance:hover {
@@ -185,6 +223,10 @@ h2 {
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
+	border: 2px solid #e6e6e6;
+	padding: 5px;
+	border-radius: 10px;
+	user-select: none;
 }
 
 .mycart-row:last-child {
@@ -197,7 +239,9 @@ h2 {
 	display: flex;
 	align-items: center;
 	padding: 10px;
-	background-color: #e6e6e6;
+	/* background-color: #e6e6e6; */
+	border-radius: 5px;
+	border: 2px dashed #e6e6e6;
 }
 
 .mycart-column:last-child {
@@ -205,7 +249,7 @@ h2 {
 }
 
 .mycart-column:hover {
-	background-color: #d9d9d9;
+	/* background-color: #d9d9d9; */
 }
 
 .mycart-item {
@@ -221,8 +265,20 @@ h2 {
 	font-weight: bold;
 }
 
+.itemblocko {
+	flex: 2;
+	display: flex;
+	justify-content: center;
+}
+
 .item {
 	flex: 4;
+	user-select: none;
+    cursor: pointer;
+}
+
+.item:hover {
+	background-color: #e6e6e6;
 }
 
 .quanity {
@@ -247,14 +303,22 @@ h2 {
 	font-family: 'Nunito', sans-serif;
 }
 
-input {
+input, select, textarea {
 	font-family: 'Nunito', sans-serif;
+}
+textarea {
+	/*padding: 4px;*/
 }
 
 /* Totally not taken somewhere else. */
 
 .editor-errors {
 	color: red;
+	margin-top: 10px;
+}
+
+.editor-confirms {
+	color: green;
 	margin-top: 10px;
 }
 
@@ -293,7 +357,9 @@ input {
 }
 
 .edit-left {
-	flex: 1;	
+	flex: 1;
+	display: flex;
+	justify-content: center;
 }
 
 .edit-left img {
@@ -356,4 +422,29 @@ td {
 
 .quanity-form {
 	margin-top: 10px;
+}
+
+.empty-table {
+	display: none;
+	padding: 20px;
+	text-align: center;
+	font-style: italic;
+}
+
+.block-categories a{
+	
+}
+
+.block-categories a:link {
+	color: blue;
+	text-decoration: inherit;
+}
+
+.block-categories a:visited {
+	color: blue;
+	text-decoration: inherit;
+}
+
+.block-categories a:hover {
+	text-decoration: underline;
 }

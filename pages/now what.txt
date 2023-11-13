@@ -1,8 +1,0 @@
-[ ] Buyable: Item Browse Page
-[ ] Login: User Reg/Login
-[ ] Shopping Cart
-[ ] Seller's Zone: Page for Opt-in, Dashboard for Add/Edit [ ] Products & Categories I guess
-[ ] Item View
-[ ] Item Add / Item Edit
-[ ] Category Add / Category Edit
-[ ] About User/Seller
