@@ -1,34 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF=8">
-	<title>Buyable</title>
-	<link rel="stylesheet" href="style.css">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	{% include 'template_meta.html' %}
 </head>
 <body>
 	<div class="container">
 		<div class="header">
 			<div class="header-box">
 				<div class="header-items">
-					<div class="header-logo">
-						<h1>🛒Buyable</h1>
-					</div>
-					<div class="nav-block">
-						<div class="header-nav">
-							<ul>
-								<li>Login</li>
-							</ul>
-						</div>
-						<div class="header-search">
-							<form>
-								 <input class="search-box" type="search" id="search_item" name="search_item" placeholder="Search 🔍">
-							</form>
-						</div>
-					</div>
+					{% include 'template_nav.html' %}
 				</div>
 			</div>
 		</div>
@@ -59,13 +39,18 @@
 						</div>
 						<input class="button logbutt" type="submit" value="Register">
 					</form>
+					{% with messages = get_flashed_messages(category_filter=['signup']) %}
+					{% if messages %}
 					<div class="editor-errors logbutt">
 						<p>There's some problems:</p>
 						<ul>
-							<li>Errors Here</li>
-							<li>Errors Here</li>
+							{% for message in messages %}
+							<li>{{message}}</li>
+							{% endfor %}
 						</ul>
 					</div>
+					{% endif %}
+					{% endwith %}
 				</div>
 				<div class="block-items block" style="min-height: unset;">
 					<h2>Login</h2>
@@ -80,13 +65,18 @@
 						</div>
 						<input class="button logbutt" type="submit" value="Login">
 					</form>
+					{% with messages = get_flashed_messages(category_filter=['login']) %}
+					{% if messages %}
 					<div class="editor-errors">
 						<p>There's some problems:</p>
 						<ul>
-							<li>Errors Here</li>
-							<li>Errors Here</li>
+							{% for message in messages %}
+							<li>{{message}}</li>
+							{% endfor %}
 						</ul>
 					</div>
+					{% endif %}
+					{% endwith %}
 				</div>
 			</div>
 		</div>
