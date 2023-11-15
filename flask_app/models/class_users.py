@@ -113,10 +113,55 @@ class Users:
             return f"{math.floor(delta.total_seconds() / 60)} minute(s) ago"
         else:
             return f"{math.floor(delta.total_seconds())} second(s) ago"
-
-    @classmethod
-    def get_comments_count(cls,my_id):
-        query = "SELECT * FROM comments WHERE user_id=%(id)s;"
-        data = { 'id': my_id}
+    
+    @classmethod 
+    def is_seller(cls,my_id):
+        is_valid=False
+        query = "SELECT * FROM sellers WHERE user_id = %(id)s;"
+        data={ "id": my_id }
         results = connectToMySQL(cls.DB).query_db(query,data)
-        return len(results);
+        if len(results) >= 1:
+            is_valid = True
+        return is_valid
+    
+    
+    @classmethod 
+    def get_seller_id(cls,my_id):
+        ret_id=-1
+        query = "SELECT * FROM sellers WHERE user_id = %(id)s;"
+        data={ "id": my_id }
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        if len(results) >= 1:
+            ret_id=results[0]['id']
+        return ret_id
+        
+    @classmethod
+    def add_seller(cls,my_id):
+        query="INSERT INTO sellers (name,description,user_id) VALUES ('','',%(id)s);"
+        data= { "id": my_id }
+        result = connectToMySQL(cls.DB).query_db(query,data)
+        return result;
+        
+    @classmethod 
+    def cart_count(cls,my_id):
+        count=0
+        query = "SELECT quanity,user_id FROM shopping_cart WHERE user_id = %(id)s;"
+        data={ "id": my_id }
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        for item in results:
+            count+=item['quanity']
+        return count
+    
+    #SELECT users.id,first_name,last_name,name FROM users LEFT JOIN sellers ON user_id=users.id;
+    @classmethod 
+    def user_alias(cls,my_id):
+        name=""
+        query = "SELECT users.id,first_name,last_name,name FROM users LEFT JOIN sellers ON user_id=users.id WHERE users.id=%(id)s;"
+        data={ "id": my_id }
+        results = connectToMySQL(cls.DB).query_db(query,data)
+        for item in results:
+            name=f"{item['first_name']} {item['last_name']}"
+            if not item['name']==None:
+                if len(item['name'])>0:
+                    name=item['name']
+        return name
