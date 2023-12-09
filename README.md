@@ -6,7 +6,7 @@ A basic full-stack store application developed within Python's Flask framework. 
 
 ## Screenshots
 
-[<img src="https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_01.png" alt="Buyable" height="150px">](https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_01.png)[<img src="https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_02.png" alt="Buyable" height="150px">](https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_02.png)[<img src="https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_03.png" alt="Buyable" height="150px">](https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_03.png)
+[<img src="https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_01.png" alt="Buyable" width="200px" height="150px">](https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_01.png)[<img src="https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_02.png" alt="Buyable" width="200px" height="150px">](https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_02.png)[<img src="https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_03.png" alt="Buyable" width="200px"  height="150px">](https://raw.githubusercontent.com/Loogamon/Loogamon/main/img/project-previews/buyable_03.png)
 
 ## Credits
 
